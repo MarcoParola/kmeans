@@ -5,23 +5,20 @@ from operator import add
 from pyspark import SparkContext
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: wordcount <input file> [<output file>]", file=sys.stderr)
+    if len(sys.argv) < 5:
+        print("Usage: wordcount <input file> <numPoints> <numDimensions> <numClusters> [<output file>]", file=sys.stderr)
         sys.exit(-1)
 
     master = "yarn"
     sc = SparkContext(master, "KMeans")
-
+    
+    # saving number of points (n), number of dimensions (d), and number of clusters (k)
+    n = int(sys.argv[2])
+    d = int(sys.argv[3])
+    k = int(sys.argv[4])
+    
     # reading the input points
     points = sc.textFile(sys.argv[1])
-    # saving number of points (n), number of dimensions (d), and number of clusters (k)
-    values = sys.argv[1].split("_")
-    if len(values) < 4:
-        print("Invalid input file")
-        sys.exit(-1)
-    n = values[1]
-    d = values[2]
-    k = values[3]
     
     # initializing centers (with the action 'takeSample' without replacement)
     # return an array, not an RDD
@@ -34,7 +31,7 @@ if __name__ == "__main__":
         
     
     
-    if len(sys.argv) == 3:
+    if len(sys.argv) == 6:
         newCenters.repartition(1).saveAsTextFile(sys.argv[2])
     else:
         output = newCenters.collect()
@@ -47,12 +44,12 @@ def computeDistance(pointX, pointY):
     xx = pointX.split(" ")
     yy = pointY.split(" ")
     
-    if( len(xx) != len(yy) )
+    if( len(xx) != len(yy) ):
         return -1
     
     dist = 0
     for i in range(len(xx)):
-        dist = dist + (float(xx[i]) - float(yy[i]))*float(xx[i]) - float(yy[i]))
+        dist = dist + (float(xx[i]) - float(yy[i]))*(float(xx[i]) - float(yy[i]))
         
     return dist
 
