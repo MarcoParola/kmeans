@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.22)  15 AUG 2020 18:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.22)  15 AUG 2020 18:49
 entering extended mode
 **./doc.tex
 (doc.tex
@@ -401,13 +401,7 @@ int: "+str(interval))[]
 
 [1
 
-]
-
-Package frontespizio Warning: Remember to compile doc-frn with
-(frontespizio)                pdflatex doc-frn
-(frontespizio)                and then rerun pdflatex.
-
-[2] (doc.aux) ) 
+] [2] (doc.aux) ) 
 Here is how much of TeX's memory you used:
  6240 strings out of 492895
  97316 string characters out of 3123735
@@ -416,18 +410,18 @@ Here is how much of TeX's memory you used:
  7721 words of font info for 20 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  51i,11n,46p,272b,262s stack positions out of 5000i,500n,10000p,200000b,50000s
- <C:\Users\Marco\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknapp
-en/ec/dpi600\ectt1000.pk> <C:\Users\Marco\AppData\Local\MiKTeX\2.9\fonts/pk/ljf
-our/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Marco\AppData\Local\MiKTeX\2.9\fo
-nts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Marco\AppData\Local\MiK
-TeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Marco\AppData
-\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><C:/Users/Marc
-o/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
-C:/Users/Marco/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmr10.pfb><C:/Users/Marco/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmr12.pfb><C:/Users/Marco/AppData/Local/Programs/MiKTeX 2.9/fonts/
-type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on doc.pdf (4 pages, 105127 bytes).
+ <C:\Users\Marco\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jkna
+ppen/ec/dpi600\ectt1000.pk> <C:\Users\Marco\AppData\Local\MiKTeX\2.9\fonts/pk/l
+jfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Marco\AppData\Local\MiKTeX\2.9\
+fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Marco\AppData\Local\M
+iKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Marco\AppDa
+ta\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk><C:/Users/Ma
+rco/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+><C:/Users/Marco/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmr10.pfb><C:/Users/Marco/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmr12.pfb><C:/Users/Marco/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on doc.pdf (4 pages, 105157 bytes).
 PDF statistics:
  222 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
