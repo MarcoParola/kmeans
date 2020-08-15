@@ -1,0 +1,123 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{frontespizio}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{scrextend}
+\usepackage[margin=1.2in]{geometry}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{url}
+\usepackage{verbatim}
+
+\begin{document}
+\selectlanguage{english}
+\baselineskip 13pt
+
+% ---- FRONTESPIZIO ----- 
+\begin{frontespizio} 
+ \Preambolo{\renewcommand{\frontpretitlefont}{\fontsize{15}{12}\scshape}}
+\Istituzione {Università di Pisa}
+\Divisione {Scuola di Ingegneria}
+\Corso [Laurea]{Artificial Intelligence and Data Engineering}
+\Annoaccademico {2019--2020}
+\Titolo {Kmeans}
+%\Filigrana [height=4cm,before=0.28,after=1]{./images/stemma_unipi.png}
+\Rientro {1cm}
+\Candidato {Alice Nannini}
+\Candidato {Fabio Malloggi}
+\Candidato {Marco Parola}
+\Candidato {Stefano Poleggi}
+\Relatore {Dr. Nicola Tonellotto}
+ \Punteggiatura {}
+\end{frontespizio}
+
+\clearpage
+
+% ----- INDICE -----
+	\tableofcontents\thispagestyle{empty}
+	\clearpage
+
+
+\title{Algoritmo KMEANS}\pagenumbering{arabic}
+
+\section{Introduzione}
+Le due implementazioni dell'algoritmo kmeans sviluppate devono essere eseguite con i seguenti input:\\
+\begin{itemize}
+\item File contenente il dataset
+\item Numero di centroidi/cluster
+\item Directory di output
+\item Numerosità di campioni nel dataset (l'algoritmo può essere eseguito facendo l'ipotesi di conoscere questo valore)
+\end{itemize}
+\vspace{4mm}
+La terminazione dell'algoritmo può avvenire a causa di due eventi:
+\begin{itemize}
+\item Si è superato una threshold relativa al numero di iterazioni che possono essere eseguite
+\item I centri calcolati al passo i-esimo e al passo i+1-esimo non discostano oltre una certa threshold (norma euclidea)
+\end{itemize}
+
+\section{Dataset}
+I dataset per i test finali sono stati generati con un script python mostrato in seguito ed hanno il seguente formato \textit{`dataset\_numPoints\_kClusters\_dimPoints'}.\\
+
+\begin{verbatim}
+import random
+
+# inputs: n (records), k (clusters), d (dimensions)
+numPoints = [1000,10000,100000]
+kClusters = [7,13]
+dimPoints = [3,7]
+
+
+for n in numPoints:
+    for k in kClusters:
+        for d in dimPoints:
+            # open a new file
+            f = open("data/dataset_"+str(n)+"_"+str(k)+"_"+str(d)+".txt", "a")
+            
+            # compute the interval for creating the clusters
+            interval = round(n/(2*k))
+            count = 0
+            print("dataset_"+str(n)+"_"+str(k)+"_"+str(d)+"; int: "+str(interval))
+            
+            # compute each point
+            for i in range(n):
+                if( (i%interval)==0 and i!=0):
+                    count = count + 2
+                
+                x = ""
+                for j in range(d):
+                    x = x + str( interval*count + random.random()*interval )
+                    x = x + " "
+                x = x + "\n"
+                # write the new point coordinates in the file
+                f.write(x)
+            
+            f.close()
+\end{verbatim}
+
+\vspace{4mm}
+Lista dei file per il dataset genereati dal precedente codice:
+\begin{itemize}
+\item dataset\_100000\_13\_3.txt
+\item dataset\_100000\_13\_7.txt
+\item dataset\_100000\_7\_3.txt
+\item dataset\_100000\_7\_7.txt
+\item dataset\_10000\_13\_3.txt
+\item dataset\_10000\_13\_7.txt
+\item dataset\_10000\_7\_3.txt
+\item dataset\_10000\_7\_7.txt
+\item dataset\_1000\_13\_3.txt
+\item dataset\_1000\_13\_7.txt
+\item dataset\_1000\_7\_3.txt
+\item dataset\_1000\_7\_7.txt 
+\end{itemize}
+
+\section{Implementazione Hadoop}
+\section{Implementazione Spark}
+\section{Test e risultati}
+
+
+
+\end{document}
