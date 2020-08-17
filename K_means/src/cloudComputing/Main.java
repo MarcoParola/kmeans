@@ -32,7 +32,7 @@ public class Main {
 
 	static private final int MAX_ITERATIONS = 30;
 	static private final double THRESHOLD = 0.5;
-	
+	static private String[] dimClusters;
 	static Sample[] newCenters, oldCenters; // TODO INIZIALIZZA
 	
 	
@@ -55,6 +55,7 @@ public class Main {
 	    
 	    int count = 0;
 	    Integer k = Integer.parseInt(otherArgs[1]);
+	    dimClusters = new String[k];
 	    Integer numReducers = Integer.parseInt(otherArgs[4]);
 	    Path input = new Path(otherArgs[0]);
 	    int numSamples = Integer.parseInt(otherArgs[3]);
@@ -113,9 +114,9 @@ public class Main {
 	    long unixTimeStop = System.currentTimeMillis();
 	    
 	    
-	    String str = (unixTimeStop - unixTimeStart) + "millis, number of iterations: " + count;
+	    String str = (unixTimeStop - unixTimeStart) + " millis, number of iterations: " + count + "\n";
 	    for(int i=0; i<k; i++)
-	    	str += i + "\t" + newCenters[i].toString() + "\n";
+	    	str += i + "\t" + newCenters[i].toString() + "\t, dimCluster: " + dimClusters[i] + "\n";
 	    
 	    
 	    
@@ -179,6 +180,7 @@ public class Main {
 		        while(line != null) {
 		        	System.out.println(line);
 		        	cent[i] = new Sample(line.split("\t")[1]);
+		        	dimClusters[i] = line.split("\t")[2];
 		        	i++;
 		        	line = br.readLine();
 		        }

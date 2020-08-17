@@ -23,9 +23,9 @@ public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWrita
 		int size = list.iterator().next().getAttributeValues().length;
 		
 		newCenter = new Sample(size);
-		int count = 0;
+		int count = 0, dimClus = 0;
 		for(Sample s : list) {
-			
+			dimClus++;
 			double[] temp = newCenter.getAttributeValues();
 			
 			for(int i=0; i< size; i++) {
@@ -44,7 +44,7 @@ public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWrita
 		String val = "";
 		for(int i=0; i<newCenter.attributeValues.length; i++)
 			val += newCenter.attributeValues[i] + " ";
-		
+		val += "\t" + dimClus;
 		context.write(key, new Text(val));
 
 	}
