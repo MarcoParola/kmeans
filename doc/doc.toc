@@ -1,7 +1,8 @@
 \babel@toc {english}{}
 \babel@toc {english}{}
-\contentsline {section}{\numberline {1}Introduzione}{1}% 
-\contentsline {section}{\numberline {2}Dataset}{1}% 
-\contentsline {section}{\numberline {3}Implementazione Hadoop}{2}% 
-\contentsline {section}{\numberline {4}Implementazione Spark}{2}% 
-\contentsline {section}{\numberline {5}Test e risultati}{2}% 
+\contentsline {section}{\numberline {1}Introduction}{1}%
+\contentsline {section}{\numberline {2}Dataset}{1}%
+\contentsline {section}{\numberline {3}MapReduce pseudo-code}{2}%
+\contentsline {section}{\numberline {4}Hadoop Implementation}{3}%
+\contentsline {section}{\numberline {5}Spark Implementation}{3}%
+\contentsline {section}{\numberline {6}Tests and Results}{3}%

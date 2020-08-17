@@ -1,96 +1,99 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.22)  15 AUG 2020 18:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.8.17)  17 AUG 2020 18:52
 entering extended mode
-**./doc-frn.tex
-(doc-frn.tex
-LaTeX2e <2018-12-01>
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\article.cls"
-Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\size10.clo"
-File: size10.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**doc-frn.tex
+(./doc-frn.tex
+LaTeX2e <2020-02-02> patch level 2
+L3 programming layer <2020-02-14>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
 )
-\c@part=\count80
-\c@section=\count81
-\c@subsection=\count82
-\c@subsubsection=\count83
-\c@paragraph=\count84
-\c@subparagraph=\count85
-\c@figure=\count86
-\c@table=\count87
-\abovecaptionskip=\skip41
-\belowcaptionskip=\skip42
-\bibindent=\dimen102
-) ("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\inputenc.st
-y"
-Package: inputenc 2018/08/11 v1.3c Input encoding file
-\inpenc@prehook=\toks14
-\inpenc@posthook=\toks15
+\c@part=\count167
+\c@section=\count168
+\c@subsection=\count169
+\c@subsubsection=\count170
+\c@paragraph=\count171
+\c@subparagraph=\count172
+\c@figure=\count173
+\c@table=\count174
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
 )
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.
-sty"
-Package: geometry 2018/04/16 v5.8 Page Geometry
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
 
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\keyval.st
-y"
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks16
+\KV@toks@=\toks14
 )
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifpdf.s
-ty"
-Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
-)
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifvtex.
-sty"
-Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
-Package ifvtex Info: VTeX not detected.
-)
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/generic/ifxetex\ifxetex.
-sty"
-Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
-)
-\Gm@cnth=\count88
-\Gm@cntv=\count89
-\c@Gm@tempcnt=\count90
-\Gm@bindingoffset=\dimen103
-\Gm@wd@mp=\dimen104
-\Gm@odd@mp=\dimen105
-\Gm@even@mp=\dimen106
-\Gm@layoutwidth=\dimen107
-\Gm@layoutheight=\dimen108
-\Gm@layouthoffset=\dimen109
-\Gm@layoutvoffset=\dimen110
-\Gm@dimlist=\toks17
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.
-cfg"))
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphicx.
-sty"
-Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2019/11/07 v1.0c TeX engine tests
+))
+\Gm@cnth=\count175
+\Gm@cntv=\count176
+\c@Gm@tempcnt=\count177
+\Gm@bindingoffset=\dimen135
+\Gm@wd@mp=\dimen136
+\Gm@odd@mp=\dimen137
+\Gm@even@mp=\dimen138
+\Gm@layoutwidth=\dimen139
+\Gm@layoutheight=\dimen140
+\Gm@layouthoffset=\dimen141
+\Gm@layoutvoffset=\dimen142
+\Gm@dimlist=\toks15
+)
+(./frontespizio.sty
+Package: frontespizio 2009/04/03 1.1 (Enrico Gregorio)
 
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphics.
-sty"
-Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/afterpage.sty
+Package: afterpage 2014/10/28 v1.08 After-Page Package (DPC)
+\AP@output=\toks16
+\AP@partial=\box45
+\AP@footins=\box46
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\trig.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\graph
-ics.cfg"
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 99.
+Package graphics Info: Driver file: pdftex.def on input line 105.
 
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-def\pdfte
-x.def"
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen111
-\Gin@req@width=\dimen112
+\Gin@req@height=\dimen143
+\Gin@req@width=\dimen144
 )
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xcolor\xcolor.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2018/04/12 v2.0h eso-pic (RN)
+
+(/usr/share/texlive/texmf-dist/tex/generic/atbegshi/atbegshi.sty
+Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
 
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\color
-.cfg"
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
@@ -103,65 +106,42 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xcolor\svgnam.def"
-File: svgnam.def 2016/05/11 v2.12 Predefined colors according to SVG 1.1 (UK)
 ))
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/frontespizio\front
-espizio.sty"
-Package: frontespizio 2011/09/21 1.4a (Enrico Gregorio)
-
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\afterpage.st
-y"
-Package: afterpage 2014/10/28 v1.08 After-Page Package (DPC)
-\AP@output=\toks18
-\AP@partial=\box27
-\AP@footins=\box28
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifpdf.sty
+Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
 )
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\atbegsh
-i.sty"
-Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
-
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\infware
-rr.sty"
-Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifxetex.sty
+Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
 )
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ltxcmds
-.sty"
-Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
-))
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/environ\environ.st
-y"
-Package: environ 2014/05/04 v0.3 A new way to define environments
-
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/trimspaces\trimspa
-ces.sty"
-Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
-)
-\@envbody=\toks19
-)
-\front@candtoks=\toks20
-\front@candcount=\count91
-\front@reltoks=\toks21
-\front@relcount=\count92
-\front@correltoks=\toks22
-\front@correlcount=\count93
+\front@candtoks=\toks17
+\front@candcount=\count178
+\front@reltoks=\toks18
+\front@relcount=\count179
+\front@correltoks=\toks19
+\front@correlcount=\count180
 )
 No auxiliary output files.
 
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
+\l__kernel_color_stack_int=\count181
+\l__pdf_internal_box=\box47
+)
 No file doc-frn.aux.
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -196,93 +176,56 @@ LaTeX Font Info:    ... okay on input line 25.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-p
-df.mkii"
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count94
-\scratchdimen=\dimen113
-\scratchbox=\box29
-\nofMPsegments=\count95
-\nofMParguments=\count96
-\everyMPshowfont=\toks23
-\MPscratchCnt=\count97
-\MPscratchDim=\dimen114
-\MPnumerator=\count98
-\makeMPintoPDFobject=\count99
-\everyMPtoPDFconversion=\toks24
-)
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-
-base.sty"
-Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
-
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\grfext.st
-y"
-Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
-
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\kvdefin
-ekeys.sty"
-Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
-))
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\kvoptions
-.sty"
-Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
-
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\kvsetke
-ys.sty"
-Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
-
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\etexcmd
-s.sty"
-Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
-
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifluate
-x.sty"
-Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-))))
-("C:\Users\Marco\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\pdftexc
-mds.sty"
-Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO
-)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
+\scratchcounter=\count182
+\scratchdimen=\dimen145
+\scratchbox=\box48
+\nofMPsegments=\count183
+\nofMParguments=\count184
+\everyMPshowfont=\toks20
+\MPscratchCnt=\count185
+\MPscratchDim=\dimen146
+\MPnumerator=\count186
+\makeMPintoPDFobject=\count187
+\everyMPtoPDFconversion=\toks21
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-38.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 456.
-)
-\AtBeginShipoutBox=\box30
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 26.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 26.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 26.
- [1
+85.
 
-{C:/Users/Marco/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] ) 
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+\AtBeginShipoutBox=\box49
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 20.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 20.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 20.
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] ) 
 Here is how much of TeX's memory you used:
- 2899 strings out of 492895
- 42984 string characters out of 3123735
- 122867 words of memory out of 3000000
- 6788 multiletter control sequences out of 15000+200000
- 7297 words of font info for 26 fonts, out of 3000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 41i,14n,35p,277b,248s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/
-Marco/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.p
-fb><C:/Users/Marco/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmr10.pfb><C:/Users/Marco/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmr12.pfb>
-Output written on doc-frn.pdf (1 page, 39610 bytes).
+ 2673 strings out of 483183
+ 38159 string characters out of 5966292
+ 276507 words of memory out of 5000000
+ 17688 multiletter control sequences out of 15000+600000
+ 536354 words of font info for 37 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 40i,14n,45p,234b,260s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr12.pfb>
+Output written on doc-frn.pdf (1 page, 45840 bytes).
 PDF statistics:
- 18 PDF objects out of 1000 (max. 8388607)
+ 24 PDF objects out of 1000 (max. 8388607)
+ 16 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

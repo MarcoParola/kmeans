@@ -23,7 +23,7 @@
 \Divisione {Scuola di Ingegneria}
 \Corso [Laurea]{Artificial Intelligence and Data Engineering}
 \Annoaccademico {2019--2020}
-\Titolo {Kmeans}
+\Titolo {Cloud Computing project:\\The \textit{k}-means Clustering Algorithm in MapReduce}
 %\Filigrana [height=4cm,before=0.28,after=1]{./images/stemma_unipi.png}
 \Rientro {1cm}
 \Candidato {Alice Nannini}
@@ -37,29 +37,29 @@
 \clearpage
 
 % ----- INDICE -----
-	\tableofcontents\thispagestyle{empty}
-	\clearpage
+\tableofcontents\thispagestyle{empty}
+\clearpage
 
+\title{KMEANS algorithm}\pagenumbering{arabic}
 
-\title{Algoritmo KMEANS}\pagenumbering{arabic}
-
-\section{Introduzione}
-Le due implementazioni dell'algoritmo kmeans sviluppate devono essere eseguite con i seguenti input:\\
+\section{Introduction}
+This project presents the implementation of the Kmeans algorithm based on a MapReduce version, using both the Hadoop framework both the Spark framework.\\
+The two implementations of the kmeans algorithm developed must be performed with the following inputs:
 \begin{itemize}
-\item File contenente il dataset
-\item Numero di centroidi/cluster
-\item Directory di output
-\item Numerosità di campioni nel dataset (l'algoritmo può essere eseguito facendo l'ipotesi di conoscere questo valore)
+\item Name of the input file containing the dataset
+\item Number of centroids/clusters
+\item Output directory
+\item Number of total samples in the input dataset (the algorithm can be run assuming that you know this value)
 \end{itemize}
 \vspace{4mm}
-La terminazione dell'algoritmo può avvenire a causa di due eventi:
+The algorithm exit can occur due to two events:
 \begin{itemize}
-\item Si è superato una threshold relativa al numero di iterazioni che possono essere eseguite
-\item I centri calcolati al passo i-esimo e al passo i+1-esimo non discostano oltre una certa threshold (norma euclidea)
+\item The maximum number of possible iteration has been reached 
+\item The centroids calculated at i-th step and i+1-th step do not deviate beyond a certain threshold (Euclidean norm)
 \end{itemize}
 
 \section{Dataset}
-I dataset per i test finali sono stati generati con un script python mostrato in seguito ed hanno il seguente formato \textit{`dataset\_numPoints\_kClusters\_dimPoints'}.\\
+The datasets for the final tests were generated with a python script, shown below and having the following format \textit{`dataset\_numPoints\_kClusters\_dimPoints'}.\\
 
 \begin{verbatim}
 import random
@@ -98,7 +98,7 @@ for n in numPoints:
 \end{verbatim}
 
 \vspace{4mm}
-Lista dei file per il dataset genereati dal precedente codice:
+List of files generated from the previous code:
 \begin{itemize}
 \item dataset\_100000\_13\_3.txt
 \item dataset\_100000\_13\_7.txt
@@ -114,9 +114,36 @@ Lista dei file per il dataset genereati dal precedente codice:
 \item dataset\_1000\_7\_7.txt 
 \end{itemize}
 
-\section{Implementazione Hadoop}
-\section{Implementazione Spark}
-\section{Test e risultati}
+\section{MapReduce pseudo-code}
+\begin{verbatim}
+class MAPPER
+  method MAP(sample_id id, sample_list l)
+    for all sample s in sample_list l do
+      dist = MAX_VALUE
+      for all center c in cluster_centers cc do
+        newDist <- computeDistance(s, c)
+        if newDist < dist
+          dist <- newDist
+          clusterIndex = cc.index
+      EMIT(index clusterIndex, sample s)
+
+
+class REDUCER
+  method REDUCE(index clusterIndex, samples [s1, s2,...])
+    count <- 0
+    center <- cluster_centers[clusterIndex]
+    for all sample s in samples [s1, s2,...] do
+      count <- count + 1
+      for i in [0:size(s)] do
+        newCenter[i] <- newCenter[i] + s[i]
+    for i in [0:size(newCenter)] do
+      newCenter[i] <- newCenter[i] / count
+    EMIT(index clusterIndex, sample newCenter)
+\end{verbatim}
+
+\section{Hadoop Implementation}
+\section{Spark Implementation}
+\section{Tests and Results}
 
 
 
