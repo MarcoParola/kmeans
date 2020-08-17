@@ -60,7 +60,7 @@ public class Sample implements Writable {
 
 	public double computeDistance(Sample points) {
 		double ret = 0.0f;
-		for(int i = 0; i < size; i++) {
+		for(int i = 0; i < points.getAttributeValues().length; i++) {
 			double value = this.attributeValues[i]- points.getAttributeValues()[i];
 			ret += value * value;
 			

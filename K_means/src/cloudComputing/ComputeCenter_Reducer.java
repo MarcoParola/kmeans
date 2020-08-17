@@ -20,13 +20,15 @@ public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWrita
 	
 	public void reduce(IntWritable key, Iterable<Sample> list, Context context) throws IOException, InterruptedException {
 		
-		newCenter = new Sample(3);
+		int size = list.iterator().next().getAttributeValues().length;
+		
+		newCenter = new Sample(size);
 		int count = 0;
 		for(Sample s : list) {
 			
 			double[] temp = newCenter.getAttributeValues();
 			
-			for(int i=0; i< 3; i++) {
+			for(int i=0; i< size; i++) {
 					temp[i] = s.getAttributeValues()[i] + temp[i];
 			}
 			
@@ -34,12 +36,16 @@ public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWrita
 			count++;
 		}
 			
-		for(int i=0; i < 3; i++) {
+		for(int i=0; i < size; i++) {
 			double temp = newCenter.getAttributeValues()[i]  / count;
 			newCenter.getAttributeValues()[i] = temp;
 		}
 		
-		context.write(key, new Text(newCenter.attributeValues[0] + " " + newCenter.attributeValues[1] + " " + newCenter.attributeValues[2]));
+		String val = "";
+		for(int i=0; i<newCenter.attributeValues.length; i++)
+			val += newCenter.attributeValues[i] + " ";
+		
+		context.write(key, new Text(val));
 
 	}
 }
