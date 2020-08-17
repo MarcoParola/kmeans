@@ -1,6 +1,7 @@
+import math
 import sys
+from datetime import datetime
 from random import random
-from operator import add
 
 from pyspark import SparkContext
 
@@ -26,7 +27,7 @@ def computeDistance(pointX, pointY):
             y = float(yy[i])
             dist = dist + (x - y)*(x - y)
         
-    return dist
+    return math.sqrt(dist)
 
 
 
@@ -40,22 +41,7 @@ def findCenter(point, centers):
             minIndex = i
     return minIndex
 
-
-"""
-def oldComputeNewCenter(points, numPoints, d):
-    for i in range(d):
-        newCenter[i] = float(0)
     
-    for xx in points:
-        x = xx.split(" ")
-        for i in range(d):
-            newCenter[i] = newCenter[i] + float(x[i])
-    
-    for i in range(d):
-        newCenter[i] = newCenter[i] / float(numPoints)
-    
-    return newCenter
-"""     
 
 def computeNewCenter(pointX, pointY):
     newCenter = ""
@@ -73,7 +59,7 @@ def computeNewCenter(pointX, pointY):
     return newCenter
 
 
-def check(centers, newCenters):
+def checkDifference(centers, newCenters):
     dist = 0.0
     
     for i in range(len(centers)):
@@ -83,34 +69,41 @@ def check(centers, newCenters):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 5:
-        print("Usage: wordcount <input file> <numPoints> <numDimensions> <numClusters> [<output file>]", file=sys.stderr)
+    if len(sys.argv) < 6:
+        print("Usage: kmeans <input file> <numPoints> <numDimensions> <numClusters> <numPartitions> [<output file>]", file=sys.stderr)
         sys.exit(-1)
 
     master = "yarn"
     sc = SparkContext(master, "KMeans")
     
-    MAX_ITERATIONS = 10
+    MAX_ITERATIONS = 30
     THRESHOLD = 0.5
+    
     
     # saving number of points (n), number of dimensions (d), and number of clusters (k)
     n = int(sys.argv[2])
     d = int(sys.argv[3])
     k = int(sys.argv[4])
+    partitions = int(sys.argv[5])
     
+    
+    STARTING_TIME = datetime.now()
     # reading the input points
     points = sc.textFile(sys.argv[1])
     
     # initializing centers (with the action 'takeSample' without replacement)
     # return an array, not an RDD
-    centers = points.takeSample(False, k, round(random()*n))
+    centers = points.takeSample(False, k, 34231)#round(random()*n)))
     
+    
+    outputFile = open("output.txt","a")
+    outputFile.write("Input: "+sys.argv[1]+", partitions: "+str(partitions)+"\n\n")
     
     for iteration in range(MAX_ITERATIONS):
-        
+        outputFile.write("_____ ITERATION "+str(iteration+1)+" _____\n")
         # printing the current centers
         for i in range(len(centers)):
-            print("_____ CENTER "+str(i)+": "+centers[i]+"_____")
+            outputFile.write("_____ CENTER "+str(i)+": "+centers[i]+"\n")
         
         ## SETTING THE SPARK STEPS (transformations and actions)
         # mapping to pairs (key: point (int), value: center_index (str))
@@ -118,26 +111,31 @@ if __name__ == "__main__":
         # getting an array with each cluster's dimension
         dimClusters = clusters.countByKey();
         for i in range(len(dimClusters)):
-            print("_____ DIM CLUSTER "+str(i)+": "+ str(dimClusters[i])+"_____")
+            outputFile.write("_____ DIM CLUSTER "+str(i)+": "+ str(dimClusters[i])+"\n")
         # computing new centers with 'reduceByKey' transformation
-        newCenters = clusters.reduceByKey(computeNewCenter).collect()
+        newCenters = clusters.reduceByKey(computeNewCenter,partitions).sortByKey().collect()
         
         # saving the new centers as array
         arrNewCenters = []
         for cc in newCenters:
             arrNewCenters.append(cc[1])
-            print("_____ CENTER: "+str(cc)+"_____")
         
         # checking the stop condition
-        if check(centers, arrNewCenters) < THRESHOLD:
+        diff = checkDifference(centers, arrNewCenters)
+        outputFile.write("_____ Difference between old and new centers: "+str(diff)+" _____\n\n\n")
+        if diff < THRESHOLD:
             break
         else:
             centers = arrNewCenters
     
+    ENDING_TIME = datetime.now()
+    outputFile.write("Start: "+str(STARTING_TIME)+", end: "+str(ENDING_TIME)+", time: "+str(ENDING_TIME - STARTING_TIME)+"\n")
+    outputFile.write("------------------------------------------------------------------------------------------\n")
+    outputFile.close()
     
-    if len(sys.argv) == 6:
+    if len(sys.argv) == 7:
         newCenters.repartition(1).saveAsTextFile(sys.argv[2])
     else:
         for cc in newCenters:
-            print("_____ CENTER "+str(i)+": "+cc+"_____")
+            print("_____ CENTER: "+str(cc)+"_____")
 
