@@ -40,11 +40,11 @@
 \tableofcontents\thispagestyle{empty}
 \clearpage
 
-\title{KMEANS algorithm}\pagenumbering{arabic}
+\title{K-MEANS algorithm}\pagenumbering{arabic}
 
 \section{Introduction}
-This project presents the implementation of the Kmeans algorithm based on a MapReduce version, using both the Hadoop framework both the Spark framework.\\
-The two implementations of the kmeans algorithm developed must be performed with the following inputs:
+This project presents the implementation of the k-means algorithm based on a MapReduce version, using both the Hadoop framework both the Spark framework.\\
+The two implementations of the k-means algorithm developed must be performed with the following inputs:
 \begin{itemize}
 \item Name of the input file containing the dataset
 \item Number of centroids/clusters
@@ -59,16 +59,15 @@ The algorithm exit can occur due to two events:
 \end{itemize}
 
 \section{Dataset}
-The datasets for the final tests were generated with a python script, shown below and having the following format \textit{`dataset\_numPoints\_kClusters\_dimPoints'}.\\
+The datasets for the final tests were generated with a python script, shown below and having the following format: \textit{`dataset\_numPoints\_kClusters\_dimPoints'}.\\
+We tested our implementations with different number of dimensions for the point (\textit{d}), different number of clusters to find (\textit{k}), and different dimension of the input datasets (\textit{n}).
 
 \begin{verbatim}
 import random
-
 # inputs: n (records), k (clusters), d (dimensions)
 numPoints = [1000,10000,100000]
 kClusters = [7,13]
 dimPoints = [3,7]
-
 
 for n in numPoints:
     for k in kClusters:
@@ -77,19 +76,20 @@ for n in numPoints:
             f = open("data/dataset_"+str(n)+"_"+str(k)+"_"+str(d)+".txt", "a")
             
             # compute the interval for creating the clusters
-            interval = round(n/(2*k))
+            interval = round(n/k)
             count = 0
             print("dataset_"+str(n)+"_"+str(k)+"_"+str(d)+"; int: "+str(interval))
             
             # compute each point
             for i in range(n):
                 if( (i%interval)==0 and i!=0):
-                    count = count + 2
+                    count = count + 4
                 
                 x = ""
                 for j in range(d):
                     x = x + str( interval*count + random.random()*interval )
-                    x = x + " "
+                    if(j < d-1):
+                      x = x + " "
                 x = x + "\n"
                 # write the new point coordinates in the file
                 f.write(x)
@@ -115,16 +115,17 @@ List of files generated from the previous code:
 \end{itemize}
 
 \section{MapReduce pseudo-code}
+The following pseudo-code shows the basic functioning of the Mapper and Reducer, implemented in this project:
 \begin{verbatim}
 class MAPPER
   method MAP(sample_id id, sample_list l)
     for all sample s in sample_list l do
-      dist = MAX_VALUE
+      dist <- MAX_VALUE
       for all center c in cluster_centers cc do
         newDist <- computeDistance(s, c)
-        if newDist < dist
+        if (newDist < dist) then
           dist <- newDist
-          clusterIndex = cc.index
+          clusterIndex <- c.index
       EMIT(index clusterIndex, sample s)
 
 
@@ -141,9 +142,31 @@ class REDUCER
     EMIT(index clusterIndex, sample newCenter)
 \end{verbatim}
 
-\section{Hadoop Implementation}
-\section{Spark Implementation}
-\section{Tests and Results}
+\section{Hadoop Implementation and Tests}
+This implementation of the k-means algorithm is developed in a Maven project written in Java language, using the \textbf{org.apache.hadoop} library.\\
+
+The first version consists in a Mapper class and a Reducer class.
+% TODO se i risultati fanno schifo e non tornano, levare test con più reducer
+Each dataset has been tested initially with a single reducer, and then with \textit{k} reducers. 
+% fine TODO
+The results of our tests are shown below.
+
+% inserire tutti i risultati
+
+In the following version, a Combiner class is added to test improvements in the performance.
+
+% inserire tutti i risultati
+
+\section{Spark Implementation and Tests}
+The Spark implementation is developed in Python language, using the \textbf{pyspark} library.\\
+The exploited transformations are:
+\begin{itemize}
+	\item \textit{map}: takes as input the RDD created from the dataset file and gives as output an RDD of (K, V), in which the key is a cluster index and the value is the coordinates of a point.
+	\item \textit{reduceByKey}: takes the (K, V) pairs RDD, created by the mapping, and returns a dataset of (K, V) pairs where the values for each key are aggregated using the given reduce function \textit{computeNewCenter}, which is of type (V,V)=>V. This transfomation is executed with different number of reduce tasks, to test improvements in the performance.
+\end{itemize}
+The results of our tests are shown below.
+
+\section{Conclusions}
 
 
 
