@@ -30,10 +30,10 @@ import com.squareup.okhttp.internal.io.*;
 
 public class Main {
 
-	static private final int MAX_ITERATIONS = 30;
-	static private final double THRESHOLD = 0.5;
+	static private final int MAX_ITERATIONS = 100;
+	static private final double THRESHOLD = 5;
 	static private String[] dimClusters;
-	static Sample[] newCenters, oldCenters; // TODO INIZIALIZZA
+	static Sample[] newCenters, oldCenters;
 	
 	
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
@@ -43,14 +43,9 @@ public class Main {
 		Configuration conf = new Configuration();
 	    String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 	    if (otherArgs.length < 2) {
-	      System.err.println("Usage: Main <in> [<in>...] <out>"); // TODO specify args
-	      System.exit(2);
+	    	System.out.println("Wrong args");
+	    	System.exit(2);
 	    }
-	    
-	    
-	    // print arguments
-	    for(int i=0; i<args.length; i++)
-	    	System.out.println(args[i]);
 	    
 	    
 	    int count = 0;
@@ -61,18 +56,13 @@ public class Main {
 	    int numSamples = Integer.parseInt(otherArgs[3]);
 	    String output;
 	    newCenters = initCenters(k, numSamples, otherArgs[0], conf);
-	    
-	    for(Sample s : newCenters)
-	    	System.out.println(s.toString());
-	    
-	    
+	    	    
 	    
 	    while(true) {
 	    	count++;
-	    	System.out.println("iterazione" + count);
+	    	System.out.println("iterazione: " + count);
 	    	
 	    	output = otherArgs[2] + count;
-	    	
 		    Job job = Job.getInstance(conf, "kmeans");
 		    job.setJarByClass(Main.class);
 		    job.setMapperClass(AssignToCluster_Mapper.class);
@@ -87,9 +77,9 @@ public class Main {
 		    
 		    String[] centers = new String[k];
 		    
-		    for(int i=0; i<k; i++) {
+		    for(int i=0; i<k; i++) 
 		    	centers[i] = newCenters[i].toString();
-		    }
+		    
 		    
 		    job.getConfiguration().setStrings("clusters_centers", centers);
 		    job.getConfiguration().setInt("numReducers", numReducers);
@@ -99,39 +89,32 @@ public class Main {
 	
 			job.waitForCompletion(true);
 			
-			
 		    oldCenters = newCenters;
 		    newCenters = readIntermediateCenters(conf, output, k, numReducers);
 		    
-		    
-		    
-		    if(count > MAX_ITERATIONS || checkCenters(newCenters, oldCenters)) {
+		    if(count > MAX_ITERATIONS || checkCenters(newCenters, oldCenters)) 
 		    	break;
-		    	// TODO scrivi risultati finali??
-		    }
+		    
 	    }
+	    
+	    
 	    
 	    long unixTimeStop = System.currentTimeMillis();
 	    
-	    
-	    String str = (unixTimeStop - unixTimeStart) + " millis, number of iterations: " + count + "\n";
+	    String str = (unixTimeStop - unixTimeStart) + "millis, number of iterations: " + count;
 	    for(int i=0; i<k; i++)
 	    	str += i + "\t" + newCenters[i].toString() + "\t, dimCluster: " + dimClusters[i] + "\n";
 	    
 	    
-	    
 	    BufferedWriter out = null;
-
 	    try {
 	        FileWriter fstream = new FileWriter("out/output" + input, true); 
 	        out = new BufferedWriter(fstream);
 	        out.write(str);
 	    }
-
 	    catch (IOException e) {
 	        System.err.println("Error: " + e.getMessage());
 	    }
-
 	    finally {
 	        if(out != null) {
 	            out.close();
@@ -155,12 +138,8 @@ public class Main {
 	
 	
 	static private Sample[] readIntermediateCenters(Configuration conf, String fileName, int k, int numRed) {
-		
-		
-		System.out.println("--------- numero di reducer: " + numRed);
-		
+				
 		Sample[] cent = new Sample[k];
-		
 		
 		try {
         FileSystem hdfs;
@@ -173,21 +152,29 @@ public class Main {
 			int i = 0;
 			for(int j=0; j<numRed; j++) {
 			
-				String fn = (j < 10) ? fileName + "/part-r-0000" + j : fileName + "/part-r-000" + j;
-		        BufferedReader br = new BufferedReader(new InputStreamReader(hdfs.open(new Path(fn))));
-		        String line = br.readLine();
+				String fn = "";
+				if (Integer.toString(j).length() < 5)
+				    for(int a=0; a < 5-Integer.toString(j).length(); a++)
+				        fn += '0';
+				
+				fn = fileName + "/part-r-" + fn + j;
 		        
-		        while(line != null) {
-		        	System.out.println(line);
-		        	cent[i] = new Sample(line.split("\t")[1]);
-		        	dimClusters[i] = line.split("\t")[2];
-		        	i++;
-		        	line = br.readLine();
-		        }
-		        
-		        br.close();
+				
+				BufferedReader br = new BufferedReader(new InputStreamReader(hdfs.open(new Path(fn))));
+				if(br != null) {
+			        String line = br.readLine();
+			        
+			        while(line != null) {
+			        	System.out.println(line);
+			        	cent[i] = new Sample(line.split("\t")[1]);
+			        	dimClusters[i] = line.split("\t")[2];
+			        	i++;
+			        	line = br.readLine();
+			        }
+			        br.close();
+				}
 			}
-	        
+	        			
 	        
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -199,15 +186,14 @@ public class Main {
 	static private Sample[] initCenters(int k, int num, String inputFile, Configuration conf) {
 		Sample[] cent = new Sample[k];
 		int[] indexes = new int[k];
-		Random rd = new Random(); 
+		Random rd = new Random(34231); ;
 		
 		for (int j = 0; j < k; j++) {
 			
 			int n = rd.nextInt(num);
 			
 			while(contains(indexes, n)) {
-				
-				System.out.println("number alrady extract");
+				System.out.println("Number already extracted");
 				n = rd.nextInt(num);
 			}
 			indexes[j] = n;
@@ -218,17 +204,14 @@ public class Main {
 		
 		BufferedReader br;
 		try {
-			//File reading utils
 	        Path path = new Path(inputFile);
 	    	FileSystem hdfs;
 			hdfs = FileSystem.get(conf);
 	    	FSDataInputStream in = hdfs.open(path);
 	        br = new BufferedReader(new InputStreamReader(in));
 	
-	        //Get centroids from the file
 	        int row = 0;
 	        int i = 0;
-	        int position;
 	        while(i < k) {
 	            String sample = br.readLine();
 	            if(row == indexes[i]) {    
@@ -244,7 +227,7 @@ public class Main {
 		return cent;
 	}
 	
-	public static boolean contains(final int[] arr, final int key) {
+	private static boolean contains(final int[] arr, final int key) {
 	    return Arrays.stream(arr).anyMatch(i -> i == key);
 	}
 }

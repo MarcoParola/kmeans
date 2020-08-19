@@ -12,9 +12,11 @@ public class Sample implements Writable {
 	int size;
 	double[] attributeValues;
 
+	public Sample() {}
 	
 	public Sample(int s, double[] attr) {
 		size = s;
+		
 		attributeValues = new double[size];
 		for(int i = 0; i < size; i++) {
 			attributeValues[i] = attr[i]; 
@@ -29,10 +31,6 @@ public class Sample implements Writable {
 		}
 	}
 	
-	public Sample() {
-	}
-	
-	// constructor through String
 	public Sample(String str) {
 		String[] attr = str.split(" ");
 		size = attr.length;
@@ -56,8 +54,6 @@ public class Sample implements Writable {
 		return size;
 	}
 	
-	
-
 	public double computeDistance(Sample points) {
 		double ret = 0.0f;
 		for(int i = 0; i < points.getAttributeValues().length; i++) {
@@ -80,13 +76,12 @@ public class Sample implements Writable {
 
 	public void readFields(DataInput in) throws IOException {
 		size = in.readInt();
-		attributeValues = new double[size]; // TODO perchè lo sto reinizializzando?
+		attributeValues = new double[size];
 		for(int i=0; i < size; i++) 
 			attributeValues[i] = in.readDouble();
-		
 	}
 	
-	
+	@Override
 	public String toString() {
 		
 		String ret = "";

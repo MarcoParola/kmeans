@@ -23,29 +23,23 @@ public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWrita
 		int size = list.iterator().next().getAttributeValues().length;
 		
 		newCenter = new Sample(size);
-		int count = 0, dimClus = 0;
+		int count = 0;
+		double[] temp = newCenter.getAttributeValues();
 		for(Sample s : list) {
-			dimClus++;
-			double[] temp = newCenter.getAttributeValues();
 			
-			for(int i=0; i< size; i++) {
-					temp[i] = s.getAttributeValues()[i] + temp[i];
-			}
+			double[] point = s.getAttributeValues();
+			for(int i=0; i< size; i++) 
+					temp[i] += point[i];
 			
-			newCenter.setAttributeValues(temp);
 			count++;
 		}
 			
-		for(int i=0; i < size; i++) {
-			double temp = newCenter.getAttributeValues()[i]  / count;
-			newCenter.getAttributeValues()[i] = temp;
-		}
+		for(int i=0; i < size; i++) 
+			temp[i] /= count;
 		
-		String val = "";
-		for(int i=0; i<newCenter.attributeValues.length; i++)
-			val += newCenter.attributeValues[i] + " ";
-		val += "\t" + dimClus;
-		context.write(key, new Text(val));
+		newCenter.setAttributeValues(temp);
+		
+		context.write(key, new Text(newCenter.toString() + "\t" + count));
 
 	}
 }
