@@ -32,7 +32,6 @@ public class Main {
 
 	static private final int MAX_ITERATIONS = 100;
 	static private final double THRESHOLD = 5;
-	static private String[] dimClusters;
 	static Sample[] newCenters, oldCenters;
 	
 	
@@ -50,7 +49,7 @@ public class Main {
 	    
 	    int count = 0;
 	    Integer k = Integer.parseInt(otherArgs[1]);
-	    dimClusters = new String[k];
+	    Integer pointDimension = Integer.parseInt(otherArgs[5]);
 	    Integer numReducers = Integer.parseInt(otherArgs[4]);
 	    Path input = new Path(otherArgs[0]);
 	    int numSamples = Integer.parseInt(otherArgs[3]);
@@ -66,7 +65,7 @@ public class Main {
 		    Job job = Job.getInstance(conf, "kmeans");
 		    job.setJarByClass(Main.class);
 		    job.setMapperClass(AssignToCluster_Mapper.class);
-		    job.setCombinerClass(Combiner.class);
+		    job.setCombinerClass(ComputeCenter_Reducer.class);
 		    job.setReducerClass(ComputeCenter_Reducer.class);
 		    job.setMapOutputKeyClass(IntWritable.class);
 		    job.setMapOutputValueClass(Sample.class);
@@ -78,11 +77,12 @@ public class Main {
 		    String[] centers = new String[k];
 		    
 		    for(int i=0; i<k; i++) 
-		    	centers[i] = newCenters[i].toString();
+		    	centers[i] = newCenters[i].getAttributeValuesAsString();
 		    
 		    
 		    job.getConfiguration().setStrings("clusters_centers", centers);
 		    job.getConfiguration().setInt("numReducers", numReducers);
+		    job.getConfiguration().setInt("pointDimension", pointDimension);
 		    
 		    FileInputFormat.addInputPath(job, input);
 			FileOutputFormat.setOutputPath(job, new Path(output));
@@ -103,7 +103,7 @@ public class Main {
 	    
 	    String str = (unixTimeStop - unixTimeStart) + "millis, number of iterations: " + count;
 	    for(int i=0; i<k; i++)
-	    	str += i + "\t" + newCenters[i].toString() + "\t, dimCluster: " + dimClusters[i] + "\n";
+	    	str += i + "\t" + newCenters[i].toString() + "\n";
 	    
 	    
 	    BufferedWriter out = null;
@@ -167,7 +167,7 @@ public class Main {
 			        while(line != null) {
 			        	System.out.println(line);
 			        	cent[i] = new Sample(line.split("\t")[1]);
-			        	dimClusters[i] = line.split("\t")[2];
+			        	cent[i].setWeight(Integer.parseInt(line.split("\t")[2]));
 			        	i++;
 			        	line = br.readLine();
 			        }

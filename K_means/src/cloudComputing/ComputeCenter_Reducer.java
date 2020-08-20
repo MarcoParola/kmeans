@@ -14,13 +14,13 @@ import com.google.protobuf.ByteString.Output;
 import org.apache.hadoop.mapreduce.Mapper.Context;
 
 //public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWritable, Sample>{
-public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWritable, Text>{
+public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWritable, Sample>{
 	
 	Sample newCenter;
 	
 	public void reduce(IntWritable key, Iterable<Sample> list, Context context) throws IOException, InterruptedException {
 		
-		int size = list.iterator().next().getAttributeValues().length;
+		int size = context.getConfiguration().getInt("pointDimension", 1);
 		
 		newCenter = new Sample(size);
 		double[] temp = newCenter.getAttributeValues();
@@ -44,7 +44,7 @@ public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWrita
 		newCenter.setAttributeValues(temp);
 		newCenter.setWeight(count);
 		
-		context.write(key, new Text(newCenter.toString() + "\t" + count));
+		context.write(key, newCenter);
 
 	}
 }

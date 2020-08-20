@@ -17,7 +17,7 @@ public class Sample implements Writable {
 	
 	public Sample(int s, double[] attr) {
 		size = s;
-		
+		weight = 1;
 		attributeValues = new double[size];
 		for(int i = 0; i < size; i++) {
 			attributeValues[i] = attr[i]; 
@@ -46,6 +46,13 @@ public class Sample implements Writable {
 	
 	public double[] getAttributeValues(){
 		return attributeValues;
+	}
+	
+	public String getAttributeValuesAsString(){
+		String ret = "";
+		for(double val : attributeValues)
+			ret += val + " ";
+		return ret;
 	}
 	
 	public void setAttributeValues(double[] values) {
@@ -77,19 +84,21 @@ public class Sample implements Writable {
 		return ret;
 	}
 
-
+	@Override
 	public void write(DataOutput out) throws IOException {
 		out.writeInt(size);
 		for(int i=0; i < size; i++)
 			out.writeDouble(attributeValues[i]);
+		out.writeInt(this.weight);
 	}
 
-
+	@Override
 	public void readFields(DataInput in) throws IOException {
 		size = in.readInt();
 		attributeValues = new double[size];
 		for(int i=0; i < size; i++) 
 			attributeValues[i] = in.readDouble();
+		weight = in.readInt();
 	}
 	
 	@Override
@@ -99,6 +108,7 @@ public class Sample implements Writable {
 		
 		for(double val : attributeValues)
 			ret += val + " ";
+		ret += "\t" + this.weight;
 		
 		return ret;
 	}
