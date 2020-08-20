@@ -66,7 +66,7 @@ public class Main {
 		    Job job = Job.getInstance(conf, "kmeans");
 		    job.setJarByClass(Main.class);
 		    job.setMapperClass(AssignToCluster_Mapper.class);
-		    //job.setCombinerClass(IntSumReducer.class);
+		    job.setCombinerClass(Combiner.class);
 		    job.setReducerClass(ComputeCenter_Reducer.class);
 		    job.setMapOutputKeyClass(IntWritable.class);
 		    job.setMapOutputValueClass(Sample.class);

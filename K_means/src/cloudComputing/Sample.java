@@ -10,6 +10,7 @@ import org.apache.hadoop.io.Writable;
 public class Sample implements Writable {
 	
 	int size;
+	int weight;
 	double[] attributeValues;
 
 	public Sample() {}
@@ -25,6 +26,7 @@ public class Sample implements Writable {
 	
 	public Sample(int s) {
 		size = s;
+		weight = 1;
 		attributeValues = new double[size];
 		for(int i = 0; i < size; i++) {
 			attributeValues[i] = 0; 
@@ -33,6 +35,7 @@ public class Sample implements Writable {
 	
 	public Sample(String str) {
 		String[] attr = str.split(" ");
+		weight = 1;
 		size = attr.length;
 		attributeValues = new double[size];
 		for(int i = 0; i < attr.length; i++) {
@@ -52,6 +55,14 @@ public class Sample implements Writable {
 	
 	public int getSize(){
 		return size;
+	}
+	
+	public void setWeight(int w) {
+		weight = w;
+	}
+	
+	public int getWeight() {
+		return weight;
 	}
 	
 	public double computeDistance(Sample points) {

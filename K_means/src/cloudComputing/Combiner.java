@@ -14,7 +14,7 @@ import com.google.protobuf.ByteString.Output;
 import org.apache.hadoop.mapreduce.Mapper.Context;
 
 //public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWritable, Sample>{
-public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWritable, Text>{
+public class Combiner extends Reducer<IntWritable, Sample, IntWritable, Sample>{
 	
 	Sample newCenter;
 	
@@ -28,18 +28,20 @@ public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWrita
 		for(Sample s : list) {
 			
 			double[] point = s.getAttributeValues();
-			for(int i=0; i< size; i++) { 
-					temp[i] += point[i] * s.getWeight();
-					count += s.getWeight();
+			int w = s.getWeight();
+			for(int i=0; i< size; i++) {
+					temp[i] += point[i] * w;
 			}
+			count += w;
 		}
 			
 		for(int i=0; i < size; i++) 
 			temp[i] /= count;
 		
 		newCenter.setAttributeValues(temp);
+		newCenter.setWeight(count);
 		
-		context.write(key, new Text(newCenter.toString() + "\t" + count));
+		context.write(key, newCenter);
 
 	}
 }
