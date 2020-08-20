@@ -60,7 +60,7 @@ public class Main {
 	    
 	    while(true) {
 	    	count++;
-	    	System.out.println("iterazione: " + count);
+	    	System.out.println("Iteration: " + count);
 	    	
 	    	output = otherArgs[2] + count;
 		    Job job = Job.getInstance(conf, "kmeans");

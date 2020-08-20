@@ -23,14 +23,16 @@ public class Combiner extends Reducer<IntWritable, Sample, IntWritable, Sample>{
 		int size = list.iterator().next().getAttributeValues().length;
 		
 		newCenter = new Sample(size);
-		int count = 0;
 		double[] temp = newCenter.getAttributeValues();
+
+		int count = 0;
+		
 		for(Sample s : list) {
 			
 			double[] point = s.getAttributeValues();
 			int w = s.getWeight();
-			for(int i=0; i< size; i++) {
-					temp[i] += point[i] * w;
+			for(int i=0; i < size; i++) {
+				temp[i] += point[i] * w;
 			}
 			count += w;
 		}
