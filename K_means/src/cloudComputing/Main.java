@@ -31,7 +31,7 @@ import com.squareup.okhttp.internal.io.*;
 public class Main {
 
 	static private final int MAX_ITERATIONS = 100;
-	static private final double THRESHOLD = 5;
+	static private final double THRESHOLD = 0.5;
 	static Sample[] newCenters, oldCenters;
 	
 	
@@ -48,12 +48,12 @@ public class Main {
 	    
 	    
 	    int count = 0;
-	    Integer k = Integer.parseInt(otherArgs[1]);
-	    Integer pointDimension = Integer.parseInt(otherArgs[5]);
-	    Integer numReducers = Integer.parseInt(otherArgs[4]);
 	    Path input = new Path(otherArgs[0]);
-	    int numSamples = Integer.parseInt(otherArgs[3]);
 	    String output;
+	    int numSamples = Integer.parseInt(otherArgs[2]);
+	    Integer k = Integer.parseInt(otherArgs[3]);
+	    Integer pointDimension = Integer.parseInt(otherArgs[4]);
+	    
 	    newCenters = initCenters(k, numSamples, otherArgs[0], conf);
 	    	    
 	    
@@ -61,7 +61,7 @@ public class Main {
 	    	count++;
 	    	System.out.println("Iteration: " + count);
 	    	
-	    	output = otherArgs[2] + count;
+	    	output = otherArgs[1] + count;
 		    Job job = Job.getInstance(conf, "kmeans");
 		    job.setJarByClass(Main.class);
 		    job.setMapperClass(AssignToCluster_Mapper.class);
@@ -71,7 +71,6 @@ public class Main {
 		    job.setMapOutputValueClass(Sample.class);
 		    job.setOutputKeyClass(IntWritable.class);
 		    job.setOutputValueClass(Sample.class);
-		    job.setNumReduceTasks(numReducers);
 	
 		    
 		    String[] centers = new String[k];
@@ -81,7 +80,6 @@ public class Main {
 		    
 		    
 		    job.getConfiguration().setStrings("clusters_centers", centers);
-		    job.getConfiguration().setInt("numReducers", numReducers);
 		    job.getConfiguration().setInt("pointDimension", pointDimension);
 		    
 		    FileInputFormat.addInputPath(job, input);
@@ -90,7 +88,7 @@ public class Main {
 			job.waitForCompletion(true);
 			
 		    oldCenters = newCenters;
-		    newCenters = readIntermediateCenters(conf, output, k, numReducers);
+		    newCenters = readIntermediateCenters(conf, output, k);
 		    
 		    if(count > MAX_ITERATIONS || checkCenters(newCenters, oldCenters)) 
 		    	break;
@@ -101,7 +99,7 @@ public class Main {
 	    
 	    long unixTimeStop = System.currentTimeMillis();
 	    
-	    String str = (unixTimeStop - unixTimeStart) + "millis, number of iterations: " + count;
+	    String str = (unixTimeStop - unixTimeStart) + "millis, number of iterations: " + count + "\n";
 	    for(int i=0; i<k; i++)
 	    	str += i + "\t" + newCenters[i].toString() + "\n";
 	    
@@ -137,7 +135,7 @@ public class Main {
 	}
 	
 	
-	static private Sample[] readIntermediateCenters(Configuration conf, String fileName, int k, int numRed) {
+	static private Sample[] readIntermediateCenters(Configuration conf, String fileName, int k) {
 				
 		Sample[] cent = new Sample[k];
 		
@@ -149,31 +147,24 @@ public class Main {
 
 			// gestione lettura dei centri, considerando che potrebbero essere stati scritti da diversi reducer al passo precedente
 			// con j scorro i file
-			int i = 0;
-			for(int j=0; j<numRed; j++) {
-			
-				String fn = "";
-				if (Integer.toString(j).length() < 5)
-				    for(int a=0; a < 5-Integer.toString(j).length(); a++)
-				        fn += '0';
-				
-				fn = fileName + "/part-r-" + fn + j;
 		        
-				
-				BufferedReader br = new BufferedReader(new InputStreamReader(hdfs.open(new Path(fn))));
-				if(br != null) {
-			        String line = br.readLine();
-			        
-			        while(line != null) {
-			        	System.out.println(line);
-			        	cent[i] = new Sample(line.split("\t")[1]);
-			        	cent[i].setWeight(Integer.parseInt(line.split("\t")[2]));
-			        	i++;
-			        	line = br.readLine();
-			        }
-			        br.close();
-				}
+			int i = 0;
+			
+			String fn = fileName + "/part-r-00000";
+			BufferedReader br = new BufferedReader(new InputStreamReader(hdfs.open(new Path(fn))));
+			if(br != null) {
+		        String line = br.readLine();
+		        
+		        while(line != null) {
+		        	System.out.println(line);
+		        	cent[i] = new Sample(line.split("\t")[1]);
+		        	cent[i].setWeight(Integer.parseInt(line.split("\t")[2]));
+		        	i++;
+		        	line = br.readLine();
+		        }
+		        br.close();
 			}
+			
 	        			
 	        
 		} catch (IOException e) {
