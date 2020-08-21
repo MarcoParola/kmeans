@@ -145,7 +145,7 @@ if __name__ == "__main__":
     
     # initializing centers (with the action 'takeSample' without replacement)
     # return an array, not an RDD
-    centers = points.takeSample(False, k, 34231)#round(random()*n)))
+    centers = points.takeSample(False, k, round(random()*n))#34231)
 
     # starting algorithm
     for iteration in range(MAX_ITERATIONS):
@@ -168,7 +168,7 @@ if __name__ == "__main__":
         
         # checking the stop condition
         diff = checkCenters(centers, arrNewCenters)
-        print("_____ Difference between old and new centers: "+str(diff)+" _____\n\n")
+        print("\n_____ Difference between old and new centers: "+str(diff)+" _____\n\n")
         if diff < THRESHOLD:
             break
         else:
