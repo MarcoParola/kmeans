@@ -1,49 +1,26 @@
 hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_100000_13_3.txt 13 output 100000 1
+hadoop jar kmeansComb.jar cloudComputing.Main data2_100000_13_3.txt output 100000 13 3
 hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_100000_13_7.txt 13 output 100000 1
+hadoop jar kmeansComb.jar cloudComputing.Main data2_100000_13_7.txt output 100000 13 7
 hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_100000_7_3.txt 13 output 100000 1
+hadoop jar kmeansComb.jar cloudComputing.Main data2_100000_7_3.txt output 100000 7 3
 hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_100000_7_7.txt 13 output 100000 1
+hadoop jar kmeansComb.jar cloudComputing.Main data2_100000_7_7.txt output 100000 7 7
 hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_10000_13_3.txt 13 output 10000 1
+hadoop jar kmeansComb.jar cloudComputing.Main data2_10000_13_3.txt output 10000 13 3
 hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_10000_13_7.txt 13 output 10000 1
+hadoop jar kmeansComb.jar cloudComputing.Main data2_10000_13_7.txt output 10000 13 7
 hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_10000_7_3.txt 13 output 10000 1
+hadoop jar kmeansComb.jar cloudComputing.Main data2_10000_7_3.txt output 10000 7 3
 hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_10000_7_7.txt 13 output 10000 1
+hadoop jar kmeansComb.jar cloudComputing.Main data2_10000_7_7.txt output 10000 7 7
 hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_1000_13_3.txt 13 output 1000 1
+hadoop jar kmeansComb.jar cloudComputing.Main data2_1000_13_3.txt output 1000 13 3
 hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_1000_13_7.txt 13 output 1000 1
+hadoop jar kmeansComb.jar cloudComputing.Main data2_1000_13_7.txt output 1000 13 7
 hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_1000_7_3.txt 13 output 1000 1
+hadoop jar kmeansComb.jar cloudComputing.Main data2_1000_7_3.txt output 1000 7 3
 hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_1000_7_7.txt 13 output 1000 1
+hadoop jar kmeansComb.jar cloudComputing.Main data2_1000_7_7.txt output 1000 7 7
 hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_100000_13_3.txt 13 output 100000 13
-hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_100000_13_7.txt 13 output 100000 7
-hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_100000_7_3.txt 13 output 100000 7
-hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_100000_7_7.txt 13 output 100000 7
-hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_10000_13_3.txt 13 output 10000 13
-hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_10000_13_7.txt 13 output 10000 13
-hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_10000_7_3.txt 13 output 10000 7
-hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_10000_7_7.txt 13 output 10000 7
-hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_1000_13_3.txt 13 output 1000 13
-hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_1000_13_7.txt 13 output 1000 13
-hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_1000_7_3.txt 13 output 1000 7
-hadoop fs -rm -r output*
-hadoop jar kmeans.jar cloudComputing.Main dataset_1000_7_7.txt 13 output 1000 7
-hadoop fs -rm -r output*
+

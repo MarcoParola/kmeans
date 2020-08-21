@@ -6,27 +6,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
-import java.util.stream.IntStream;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
-import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.NullWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
-
-import com.nimbusds.jose.util.ArrayUtils;
-import com.squareup.okhttp.internal.io.*;
 
 public class Main {
 
@@ -37,15 +26,17 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 		
+		// Saving start timestamp
 		long unixTimeStart = System.currentTimeMillis();
 		
 		Configuration conf = new Configuration();
+		
+		// Checking number of input arguments and saving them
 	    String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 	    if (otherArgs.length < 2) {
 	    	System.out.println("Wrong args");
 	    	System.exit(2);
 	    }
-	    
 	    
 	    int count = 0;
 	    Path input = new Path(otherArgs[0]);
@@ -54,9 +45,10 @@ public class Main {
 	    Integer k = Integer.parseInt(otherArgs[3]);
 	    Integer pointDimension = Integer.parseInt(otherArgs[4]);
 	    
+	    // Initialization of the centers for the first iteration
 	    newCenters = initCenters(k, numSamples, otherArgs[0], conf);
 	    	    
-	    
+	    // Sarting kmeans algorithm
 	    while(true) {
 	    	count++;
 	    	System.out.println("Iteration: " + count);
@@ -84,21 +76,25 @@ public class Main {
 		    
 		    FileInputFormat.addInputPath(job, input);
 			FileOutputFormat.setOutputPath(job, new Path(output));
-	
+			
+			// Waiting for the job to complete
 			job.waitForCompletion(true);
 			
+			// Updating the new centers for the next iteration
 		    oldCenters = newCenters;
 		    newCenters = readIntermediateCenters(conf, output, k);
 		    
+		    // Checking stop condition
 		    if(count > MAX_ITERATIONS || checkCenters(newCenters, oldCenters)) 
 		    	break;
 		    
-	    }
+	    } // Ending kmeans algorithm
 	    
 	    
-	    
+	    // Saving end timestamp
 	    long unixTimeStop = System.currentTimeMillis();
 	    
+	    // Writing results in local log file
 	    String str = (unixTimeStop - unixTimeStart) + "millis, number of iterations: " + count + "\n";
 	    for(int i=0; i<k; i++)
 	    	str += i + "\t" + newCenters[i].toString() + "\n";
@@ -123,9 +119,7 @@ public class Main {
 	
 	
 	static private boolean checkCenters(Sample[] newCenters, Sample[] oldCenters) {
-		
-		// TODO implementa interfaccia comparable
-		
+				
 		double norm = 0;
 		
 		for(int i=0; i<newCenters.length; i++)			
@@ -165,8 +159,6 @@ public class Main {
 		        br.close();
 			}
 			
-	        			
-	        
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -174,7 +166,9 @@ public class Main {
 		return cent;
 	}
 	
+	
 	static private Sample[] initCenters(int k, int num, String inputFile, Configuration conf) {
+		
 		Sample[] cent = new Sample[k];
 		int[] indexes = new int[k];
 		Random rd = new Random(34231); ;
@@ -217,6 +211,7 @@ public class Main {
 		}
 		return cent;
 	}
+	
 	
 	private static boolean contains(final int[] arr, final int key) {
 	    return Arrays.stream(arr).anyMatch(i -> i == key);

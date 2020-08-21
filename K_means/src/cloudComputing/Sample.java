@@ -3,7 +3,6 @@ package cloudComputing;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.apache.hadoop.io.Writable;
 
@@ -113,5 +112,3 @@ public class Sample implements Writable {
 		return ret;
 	}
 }
-
-

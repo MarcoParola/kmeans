@@ -1,11 +1,8 @@
 package cloudComputing;
 
 import org.apache.hadoop.mapreduce.Mapper;
-
 import org.apache.hadoop.io.LongWritable;
-
 import java.io.IOException;
-
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 
@@ -24,7 +21,6 @@ public class AssignToCluster_Mapper extends Mapper<LongWritable, Text, IntWritab
 		for(int i=0; i<values.length; i++)
 			centers[i] = new Sample(values[i]);
     }
-	
 	
 	
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {

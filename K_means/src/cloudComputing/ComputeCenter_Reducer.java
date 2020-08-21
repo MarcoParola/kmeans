@@ -1,19 +1,9 @@
 package cloudComputing;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.NullWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-import com.google.protobuf.ByteString.Output;
-
-import org.apache.hadoop.mapreduce.Mapper.Context;
-
-//public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWritable, Sample>{
 public class ComputeCenter_Reducer extends Reducer<IntWritable, Sample, IntWritable, Sample>{
 	
 	Sample newCenter;
