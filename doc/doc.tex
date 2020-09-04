@@ -11,6 +11,7 @@
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{url}
 \usepackage{verbatim}
+\usepackage{subfig}
 
 \begin{document}
 \selectlanguage{english}
@@ -143,35 +144,44 @@ class REDUCER
 \end{verbatim}
 
 \section{Hadoop Implementation and Tests}
-This implementation of the k-means algorithm is developed in a Maven project written in Java language, using the \textbf{org.apache.hadoop} library.\\
-
-The first version consists in a Mapper class and a Reducer class.
-% TODO se i risultati fanno schifo e non tornano, levare test con più reducer
-Each dataset has been tested initially with a single reducer, and then with \textit{k} reducers. 
-% fine TODO
-The results of our tests are shown below.
-
-% inserire tutti i risultati
-
-In the following version, a Combiner class is added to test improvements in the performance.
-
-% inserire tutti i risultati
-
-Finally, we tryed different values for the threshold of the stop condition.
-
-% inserire tutti i risultati
+This implementation of the k-means algorithm is developed in a Maven project written in Java programming language, using the \textbf{org.apache.hadoop} library.\\
+Initially, we did the tests on a first version, consisting simply in a Mapper class and a Reducer class. Then, we added a Combiner class to test improvements in the performance. For our Combiner, we decided to use the same implementation of the Reducer, that though will execute locally after the \textit{mapping} part, to minimize both the input and the computation of the \textit{reduce} function.\\
+Finally, we tried different values for the threshold of the stop condition.
 
 \section{Spark Implementation and Tests}
 The Spark implementation is developed in Python language, using the \textbf{pyspark} library.\\
 The exploited transformations are:
 \begin{itemize}
 	\item \textit{map}: takes as input the RDD created from the dataset file and gives as output an RDD of (K, V), in which the key is a cluster index and the value is the coordinates of a point.
-	\item \textit{reduceByKey}: takes the (K, V) pairs RDD, created by the mapping, and returns a dataset of (K, V) pairs where the values for each key are aggregated using the given reduce function \textit{computeNewCenter}, which is of type (V,V)=>V. This transfomation is executed with different number of reduce tasks, to test improvements in the performance.
+	\item \textit{reduceByKey}: takes the (K, V) pairs RDD, created by the mapping, and returns a dataset of (K, V) pairs where the values for each key are aggregated using the given reduce function \textit{computeNewCenter}, which is of type (V,V)=>V.
 \end{itemize}
-The results of our tests are shown below.
+Also in this case, we tested our datasets with different threshold values of the stop condition.
 
-\section{Conclusions}
+\clearpage
 
+\section{Tests' Results}
+We have collected the results of our tests and created summary tables.
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{images/tables}
+\end{figure}\\
+For each input file, the metrics we took into account to evaluate the performance are: the total execution time of the algorithms, the number of total iterations, and the average execution time per iteration. \\
+We have noticed that, by introducing the Combiner class, performance has not significantly improved. Probably, this lack of improvement is due to the unreachability of some of our virtual machine during the execution of the tests with the Combiner.
 
+\begin{figure}
+\centering
+\subfloat[]
+{\includegraphics[width=.50\textwidth]{images/time_th5}}
+\subfloat[]
+{\includegraphics[width=.50\textwidth]{images/time_th05}} \\
+\subfloat[]
+{\includegraphics[width=.50\textwidth]{images/iter_th5}}
+\subfloat[]
+{\includegraphics[width=.50\textwidth]{images/iter_th05}} \\
+\subfloat[]
+{\includegraphics[width=.50\textwidth]{images/timexiter_th5}}
+\subfloat[]
+{\includegraphics[width=.50\textwidth]{images/timexiter_th05}}\\
+\end{figure}
 
 \end{document}
