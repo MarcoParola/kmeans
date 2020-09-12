@@ -76,7 +76,7 @@ def findCenter(point, centers):
     minDist = float("inf")
     for i in range(len(centers)):
         newDist = computeDistance(point, centers[i])
-        # if newDist < 0: gestire errore
+        
         if (newDist < minDist):
             minDist = newDist
             minIndex = i
@@ -122,8 +122,8 @@ def checkCenters(centers, newCenters):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 6:
-        print("Usage: kmeans <input file> <numPoints> <numDimensions> <numClusters> <numPartitions> [<output file>]", file=sys.stderr)
+    if len(sys.argv) < 5:
+        print("Usage: kmeans <input file> <numPoints> <numDimensions> <numClusters> [<output file>]", file=sys.stderr)
         sys.exit(-1)
 
     master = "yarn"
@@ -131,12 +131,12 @@ if __name__ == "__main__":
     
     MAX_ITERATIONS = 100
     THRESHOLD = 0.5
+    partitions = 1
     
-    # saving number of points (n), number of clusters (k), number of dimensions (d), and number of partitions
+    # saving number of points (n), number of clusters (k), and number of dimensions (d)
     n = int(sys.argv[2])
     k = int(sys.argv[3])
     d = int(sys.argv[4])
-    partitions = int(sys.argv[5])
     
     
     STARTING_TIME = datetime.now()
@@ -145,7 +145,7 @@ if __name__ == "__main__":
     
     # initializing centers (with the action 'takeSample' without replacement)
     # return an array, not an RDD
-    centers = points.takeSample(False, k, round(random()*n))#34231)
+    centers = points.takeSample(False, k, 34231)#round(random()*n))
 
     # starting algorithm
     for iteration in range(MAX_ITERATIONS):
@@ -156,10 +156,10 @@ if __name__ == "__main__":
         
         ## SETTING THE SPARK STEPS (transformations and actions)
         # mapping to pairs (key: center_index (int), value: coord + weight (str))
-        clusters = points.map(lambda point: ( findCenter(point,centers), Sample(point,1).toString() )).sortByKey()
+        clusters = points.map(lambda point: ( findCenter(point,centers), Sample(point,1).toString() ))
         
         # computing new centers with 'reduceByKey' transformation
-        newCenters = clusters.reduceByKey(computeNewCenter,partitions)#.sortByKey()
+        newCenters = clusters.reduceByKey(computeNewCenter,partitions)
         
         # saving the new centers as array
         arrNewCenters = []
@@ -180,16 +180,18 @@ if __name__ == "__main__":
     # saving info in local file
     outputFile = open("out_spark/output","a")
     outputFile.write(sys.argv[1]+"\n")
-    outputFile.write("time: "+str(ENDING_TIME - STARTING_TIME)+", iterations: "+str(iteration+1)+", partitions: "+str(partitions)+"\n")
+    outputFile.write("time: "+str(ENDING_TIME - STARTING_TIME)+", iterations: "+str(iteration+1)+"\n")
+    '''
     # printing the centers
     for cc in newCenters.collect():
         c =  sampleFromString(cc[1])
         outputFile.write(str(cc[0])+"\t"+c.getCoord()+" clusterDim: "+str(c.getWeight())+"\n")
+    '''
     outputFile.write("------------------------------------------------------------------------------------------\n")
     outputFile.close()
     
     # saving results in hdfs
-    if len(sys.argv) == 7:
+    if len(sys.argv) == 6:
         newCenters.repartition(1).saveAsTextFile(sys.argv[6]+"_"+str(n)+"_"+str(k)+"_"+str(d))
     else:
         for cc in newCenters.collect():
