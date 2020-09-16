@@ -159,7 +159,7 @@ if __name__ == "__main__":
         clusters = points.map(lambda point: ( findCenter(point,centers), Sample(point,1).toString() ))
         
         # computing new centers with 'reduceByKey' transformation
-        newCenters = clusters.reduceByKey(computeNewCenter,partitions)
+        newCenters = clusters.reduceByKey(computeNewCenter,partitions).sortByKey()
         
         # saving the new centers as array
         arrNewCenters = []
