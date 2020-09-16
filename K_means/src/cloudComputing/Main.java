@@ -26,16 +26,16 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 		
-		// Saving start timestamp
-		long unixTimeStart = System.currentTimeMillis();
+	    // Saving start timestamp
+	    long unixTimeStart = System.currentTimeMillis();
 
-		Configuration conf = new Configuration();
+	    Configuration conf = new Configuration();
 
-		// Checking number of input arguments and saving them
+	    // Checking number of input arguments and saving them
 	    String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 	    if (otherArgs.length < 2) {
-			System.out.println("Wrong args");
-			System.exit(2);
+		System.out.println("Wrong args");
+		System.exit(2);
 	    }
 
 	    int count = 0;
@@ -54,39 +54,39 @@ public class Main {
 	    	System.out.println("Iteration: " + count);
 	    	
 	    	output = otherArgs[1] + count;
-		    Job job = Job.getInstance(conf, "kmeans");
-		    job.setJarByClass(Main.class);
-		    job.setMapperClass(AssignToCluster_Mapper.class);
-		    job.setCombinerClass(ComputeCenter_Reducer.class);
-		    job.setReducerClass(ComputeCenter_Reducer.class);
-		    job.setMapOutputKeyClass(IntWritable.class);
-		    job.setMapOutputValueClass(Sample.class);
-		    job.setOutputKeyClass(IntWritable.class);
-		    job.setOutputValueClass(Sample.class);
+		Job job = Job.getInstance(conf, "kmeans");
+		job.setJarByClass(Main.class);
+		job.setMapperClass(AssignToCluster_Mapper.class);
+		job.setCombinerClass(ComputeCenter_Reducer.class);
+		job.setReducerClass(ComputeCenter_Reducer.class);
+		job.setMapOutputKeyClass(IntWritable.class);
+		job.setMapOutputValueClass(Sample.class);
+		job.setOutputKeyClass(IntWritable.class);
+		job.setOutputValueClass(Sample.class);
 	
 		    
-		    String[] centers = new String[k];
+		String[] centers = new String[k];
 		    
-		    for(int i=0; i<k; i++) 
-		    	centers[i] = newCenters[i].getAttributeValuesAsString();
+		for(int i=0; i<k; i++) 
+		    centers[i] = newCenters[i].getAttributeValuesAsString();
 		    
 		    
-		    job.getConfiguration().setStrings("clusters_centers", centers);
-		    job.getConfiguration().setInt("pointDimension", pointDimension);
+		job.getConfiguration().setStrings("clusters_centers", centers);
+		job.getConfiguration().setInt("pointDimension", pointDimension);
 		    
-		    FileInputFormat.addInputPath(job, input);
-			FileOutputFormat.setOutputPath(job, new Path(output));
+		FileInputFormat.addInputPath(job, input);
+		FileOutputFormat.setOutputPath(job, new Path(output));
 			
-			// Waiting for the job to complete
-			job.waitForCompletion(true);
+		// Waiting for the job to complete
+		job.waitForCompletion(true);
 			
-			// Updating the new centers for the next iteration
-		    oldCenters = newCenters;
-		    newCenters = readIntermediateCenters(conf, output, k);
+		// Updating the new centers for the next iteration
+		oldCenters = newCenters;
+		newCenters = readIntermediateCenters(conf, output, k);
 		    
-		    // Checking stop condition
-		    if(count > MAX_ITERATIONS || checkCenters(newCenters, oldCenters)) 
-		    	break;
+		// Checking stop condition
+		if(count > MAX_ITERATIONS || checkCenters(newCenters, oldCenters)) 
+		    break;
 		    
 	    } // Ending kmeans algorithm
 	    
@@ -134,7 +134,7 @@ public class Main {
 		Sample[] cent = new Sample[k];
 		
 		try {
-        FileSystem hdfs;
+        		FileSystem hdfs;
 			hdfs = FileSystem.get(conf);
 			
 			int i = 0;
