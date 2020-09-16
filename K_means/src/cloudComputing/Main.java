@@ -28,26 +28,26 @@ public class Main {
 		
 		// Saving start timestamp
 		long unixTimeStart = System.currentTimeMillis();
-		
+
 		Configuration conf = new Configuration();
-		
+
 		// Checking number of input arguments and saving them
 	    String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 	    if (otherArgs.length < 2) {
-	    	System.out.println("Wrong args");
-	    	System.exit(2);
+			System.out.println("Wrong args");
+			System.exit(2);
 	    }
-	    
+
 	    int count = 0;
 	    Path input = new Path(otherArgs[0]);
 	    String output;
 	    int numSamples = Integer.parseInt(otherArgs[2]);
 	    Integer k = Integer.parseInt(otherArgs[3]);
 	    Integer pointDimension = Integer.parseInt(otherArgs[4]);
-	    
+
 	    // Initialization of the centers for the first iteration
 	    newCenters = initCenters(k, numSamples, otherArgs[0], conf);
-	    	    
+
 	    // Sarting kmeans algorithm
 	    while(true) {
 	    	count++;
