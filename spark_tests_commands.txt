@@ -1,3 +1,19 @@
+hadoop fs -put data2_100000_13_3.txt
+hadoop fs -put data2_100000_7_3.txt
+hadoop fs -put data2_10000_13_3.txt
+hadoop fs -put data2_10000_7_3.txt
+hadoop fs -put data2_1000_13_7.txt
+hadoop fs -put data2_1000_7_7.txt 
+hadoop fs -put data2_100000_13_7.txt
+hadoop fs -put data2_100000_7_7.txt
+hadoop fs -put data2_10000_13_7.txt
+hadoop fs -put data2_10000_7_7.txt
+hadoop fs -put data2_1000_7_3.txt
+hadoop fs -put data2_1000_13_3.txt
+hadoop fs -put random_1000_13_3.txt
+
+----------------------------------------------------------
+
 spark-submit kmeans.py data2_1000_7_3.txt 1000 7 3 
 spark-submit kmeans.py data2_1000_7_7.txt 1000 7 7
 spark-submit kmeans.py random1000_13_3.txt 1000 13 3
@@ -12,4 +28,8 @@ spark-submit kmeans.py data2_100000_13_3.txt 100000 13 3
 spark-submit kmeans.py data2_100000_13_7.txt 100000 13 7
 
 ----------------------------------------------------------
-rm /opt/hadoop/logs/hadoop-hadoop-*
+
+rm -r /opt/hadoop/logs/hadoop-hadoop-*
+rm -r /tmp/hadoop-hadoop
+hdfs dfsadmin -safemode leave
+hdfs fsck -delete
