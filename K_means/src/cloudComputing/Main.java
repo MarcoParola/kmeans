@@ -136,12 +136,7 @@ public class Main {
 		try {
         FileSystem hdfs;
 			hdfs = FileSystem.get(conf);
-			// TODO così potrebbe non funzionare, perchè potrei avere meno cluster, nel caso in cui ad un centroide non siano 
-			// stati assegnati sample
-
-			// gestione lettura dei centri, considerando che potrebbero essere stati scritti da diversi reducer al passo precedente
-			// con j scorro i file
-		        
+			
 			int i = 0;
 			
 			String fn = fileName + "/part-r-00000";
